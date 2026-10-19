@@ -24,6 +24,7 @@ app.registerExtension({
             onNodeCreated?.apply(this, arguments);
 
             const node = this;
+            let widget; // the widget instance ComfyUI actually keeps (set below)
             const flash = (text) => {
                 widget.label = text;
                 node.setDirtyCanvas(true, true);
@@ -64,7 +65,7 @@ app.registerExtension({
                 }
             };
 
-            const widget = {
+            const spec = {
                 type: "misave_button",
                 name: "SAVE",
                 label: "SAVE",
@@ -102,6 +103,9 @@ app.registerExtension({
                     return false;
                 },
             };
+            // ComfyUI overwrites widget.width during layout, and the click hit-area is
+            // derived from it, so the button (drawn at the right) could fall outside it.
+            // Pin it to the node width.
             const onMouseMove = this.onMouseMove;
             this.onMouseMove = function (e, pos) {
                 onMouseMove?.apply(this, arguments);
@@ -121,7 +125,15 @@ app.registerExtension({
                     this.setDirtyCanvas(true, true);
                 }
             };
-            this.addCustomWidget(widget);
+            this.addCustomWidget(spec);
+            // ComfyUI wraps the spec in its own object; state and hit-area must live on that one.
+            widget = this.widgets[this.widgets.length - 1];
+            Object.defineProperty(widget, "width", {
+                get: () => node.size[0],
+                set: () => {},
+                enumerable: true,
+                configurable: true,
+            });
             this.setSize([Math.max(this.size[0], 300), this.computeSize()[1]]);
         };
     },
