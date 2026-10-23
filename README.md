@@ -1,5 +1,7 @@
 # MI Save Image
 
+![MI Save Image node](images/screenshot.webp)
+
 ComfyUI custom node. Receives one or several images and saves them to ComfyUI's `temp` folder (with preview).
 The **SAVE** button copies the visible image (or all images in grid view) to the default `output` folder.
 
