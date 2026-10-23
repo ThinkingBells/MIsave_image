@@ -66,7 +66,7 @@ class MIsave_image:
     RETURN_NAMES = ("images",)
     FUNCTION = "preview"
     OUTPUT_NODE = True
-    CATEGORY = "image"
+    CATEGORY = "MI nodes"
 
     def preview(self, images, filename_prefix=DEFAULT_PREFIX, prompt=None, extra_pnginfo=None):
         os.makedirs(self.temp_dir, exist_ok=True)
@@ -135,7 +135,7 @@ async def misave_image_save(request):
 
 
 NODE_CLASS_MAPPINGS = {"MIsave_image": MIsave_image}
-NODE_DISPLAY_NAME_MAPPINGS = {"MIsave_image": "MIsave_image"}
+NODE_DISPLAY_NAME_MAPPINGS = {"MIsave_image": "MI Save Image"}
 WEB_DIRECTORY = "./js"
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS", "WEB_DIRECTORY"]
