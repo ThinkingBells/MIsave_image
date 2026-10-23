@@ -9,3 +9,7 @@ Filenames follow `filename_prefix`, default `%date:MM-dd-hh-mm-ss%` (tokens: `yy
 
 ## Install
 Copy this folder to `ComfyUI/custom_nodes/` and restart ComfyUI.
+
+## License
+
+[MIT](LICENSE) © 2026 Thinkingbells
